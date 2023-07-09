@@ -3,10 +3,7 @@ package com.example.simple_crud.controller;
 import com.example.simple_crud.entity.Product;
 import com.example.simple_crud.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping("/product")
     public List<Product> fetchAllProducts(){
         return productService.fetchAllProducts();
     }
@@ -24,5 +21,10 @@ public class ProductController {
     @PostMapping("/product")
     public Product saveProduct(@RequestBody Product product){
         return productService.saveProduct(product);
+    }
+
+    @GetMapping("/product/{id}")
+    public Product fetchProduct(@PathVariable("id") Long productId){
+        return productService.fetchProductById(productId);
     }
 }
