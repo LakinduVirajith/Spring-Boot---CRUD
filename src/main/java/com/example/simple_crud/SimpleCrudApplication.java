@@ -15,14 +15,9 @@ public class SimpleCrudApplication {
 		SpringApplication.run(SimpleCrudApplication.class, args);
 	}
 
-//	@GetMapping
-//	public String helloWorld(){
-//		return "Hello World";
-//	}
-
 	@GetMapping
-	public List<String> hello(){
-		return List.of("Hello", "World");
+	public List<String> welcome() {
+		return List.of("Spring Boot CRUD Application", "Running Successfully");
 	}
 }
 
