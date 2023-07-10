@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface ProductService {
 
-    public List<Product> fetchAllProducts();
+    List<Product> fetchAllProducts();
 
-    public Product saveProduct(Product product);
+    Product saveProduct(Product product);
 
-    public Product fetchProductById(Long id);
+    Product fetchProductById(Long id);
 
-    public void deleteProduct(Long productId);
+    void deleteProduct(Long productId);
 
-    public Product updateProduct(Long productId, Product product);
+    Product updateProduct(Long productId, Product product);
 
-    public Product fetchProductByName(String productName);
+    Product fetchProductByName(String productName);
 
-    public List<Product> searchProductsByName(String productName);
+    List<Product> searchProductsByName(String productName);
 }
