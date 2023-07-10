@@ -39,18 +39,14 @@ public class ProductController {
         return productService.updateProduct(productId, product);
     }
 
-    @GetMapping("/product/search/{name}")
+    @GetMapping("/product/search/name/{name}")
     public Product fetchProductByName(@PathVariable("name") String productName){
         return productService.fetchProductByName(productName);
     }
 
-    @GetMapping("/product/search/case/{name}")
-    public Product fetchProductByNameIgnoreCase(@PathVariable("name") String productName){
-        return productService.fetchProductByNameIgnoreCase(productName);
-    }
 
-    @GetMapping("product/search/all/{name}")
+    @GetMapping("product/search/{name}")
     public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName){
-        return productService.fetchAllProductByNameIgnoreCase(productName);
+        return productService.searchProductsByName(productName);
     }
 }

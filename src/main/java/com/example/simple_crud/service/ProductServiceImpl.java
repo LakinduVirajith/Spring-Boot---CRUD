@@ -57,15 +57,16 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public Product fetchProductByName(String productName) {
-        return productRepository.findByProductName(productName);
-    }
+        Product product = productRepository.findByProductName(productName);
+        if (!Objects.nonNull(product)) {
+            product = productRepository.findByProductNameIgnoreCase(productName);
+        }
 
-    public Product fetchProductByNameIgnoreCase(String productName) {
-        return productRepository.findByProductNameIgnoreCase(productName);
+        return product;
     }
 
     @Override
-    public List<Product> fetchAllProductByNameIgnoreCase(String productName) {
+    public List<Product> searchProductsByName(String productName) {
         String searchName = productName.trim().toLowerCase();
         return productRepository.findByProductNameIgnoreCaseContaining(searchName);
     }
