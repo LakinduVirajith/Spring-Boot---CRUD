@@ -13,4 +13,6 @@ public interface ProductService {
     public Product fetchProductById(Long id);
 
     public void deleteProduct(Long productId);
+
+    public Product updateProduct(Long productId, Product product);
 }
