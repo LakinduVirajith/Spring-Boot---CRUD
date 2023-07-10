@@ -55,5 +55,19 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.save(productValue);
     }
 
+    @Override
+    public Product fetchProductByName(String productName) {
+        Product product = productRepository.findByProductName(productName);
+        if (!Objects.nonNull(product)) {
+            product = productRepository.findByProductNameIgnoreCase(productName);
+        }
 
+        return product;
+    }
+
+    @Override
+    public List<Product> searchProductsByName(String productName) {
+        String searchName = productName.trim().toLowerCase();
+        return productRepository.findByProductNameIgnoreCaseContaining(searchName);
+    }
 }

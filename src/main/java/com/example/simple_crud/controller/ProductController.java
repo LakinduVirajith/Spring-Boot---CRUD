@@ -38,4 +38,15 @@ public class ProductController {
     public Product updateProduct(@PathVariable("id") Long productId, @RequestBody Product product){
         return productService.updateProduct(productId, product);
     }
+
+    @GetMapping("/product/search/name/{name}")
+    public Product fetchProductByName(@PathVariable("name") String productName){
+        return productService.fetchProductByName(productName);
+    }
+
+
+    @GetMapping("product/search/{name}")
+    public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName){
+        return productService.searchProductsByName(productName);
+    }
 }
