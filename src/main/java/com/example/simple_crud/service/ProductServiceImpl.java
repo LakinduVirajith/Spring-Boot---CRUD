@@ -63,4 +63,10 @@ public class ProductServiceImpl implements ProductService{
     public Product fetchProductByNameIgnoreCase(String productName) {
         return productRepository.findByProductNameIgnoreCase(productName);
     }
+
+    @Override
+    public List<Product> fetchAllProductByNameIgnoreCase(String productName) {
+        String searchName = productName.trim().toLowerCase();
+        return productRepository.findByProductNameIgnoreCaseContaining(searchName);
+    }
 }

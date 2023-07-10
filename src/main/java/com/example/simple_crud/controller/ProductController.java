@@ -48,4 +48,9 @@ public class ProductController {
     public Product fetchProductByNameIgnoreCase(@PathVariable("name") String productName){
         return productService.fetchProductByNameIgnoreCase(productName);
     }
+
+    @GetMapping("product/search/all/{name}")
+    public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName){
+        return productService.fetchAllProductByNameIgnoreCase(productName);
+    }
 }

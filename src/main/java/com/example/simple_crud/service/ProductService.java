@@ -19,4 +19,6 @@ public interface ProductService {
     public Product fetchProductByName(String productName);
 
     Product fetchProductByNameIgnoreCase(String productName);
+
+    public List<Product> fetchAllProductByNameIgnoreCase(String productName);
 }
