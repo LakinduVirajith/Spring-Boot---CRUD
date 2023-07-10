@@ -15,4 +15,8 @@ public interface ProductService {
     public void deleteProduct(Long productId);
 
     public Product updateProduct(Long productId, Product product);
+
+    public Product fetchProductByName(String productName);
+
+    Product fetchProductByNameIgnoreCase(String productName);
 }

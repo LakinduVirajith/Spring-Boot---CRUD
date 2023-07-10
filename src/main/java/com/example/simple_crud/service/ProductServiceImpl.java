@@ -55,5 +55,12 @@ public class ProductServiceImpl implements ProductService{
         return productRepository.save(productValue);
     }
 
+    @Override
+    public Product fetchProductByName(String productName) {
+        return productRepository.findByProductName(productName);
+    }
 
+    public Product fetchProductByNameIgnoreCase(String productName) {
+        return productRepository.findByProductNameIgnoreCase(productName);
+    }
 }
