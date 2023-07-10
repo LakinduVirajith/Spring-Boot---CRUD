@@ -19,7 +19,7 @@ public class Product {
     private String productDescription;
     @Positive
     private Double regularPrice;
-    @PositiveOrZero
+
     private Double discount;
 
     private Double avgRatings;
