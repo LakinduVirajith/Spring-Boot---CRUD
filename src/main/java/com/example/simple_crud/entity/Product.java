@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
@@ -11,10 +14,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
     private Long productID;
+    @NotBlank(message = "product name can't be null")
     private String productName;
     private String productDescription;
+    @Positive
     private Double regularPrice;
+    @PositiveOrZero
     private Double discount;
+
     private Double avgRatings;
 
     public Product() {

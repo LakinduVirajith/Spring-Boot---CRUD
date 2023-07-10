@@ -2,6 +2,7 @@ package com.example.simple_crud.controller;
 
 import com.example.simple_crud.entity.Product;
 import com.example.simple_crud.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public Product saveProduct(@RequestBody Product product){
+    public Product saveProduct(@Valid @RequestBody Product product){
         return productService.saveProduct(product);
     }
 
@@ -43,7 +44,6 @@ public class ProductController {
     public Product fetchProductByName(@PathVariable("name") String productName){
         return productService.fetchProductByName(productName);
     }
-
 
     @GetMapping("product/search/{name}")
     public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName){
