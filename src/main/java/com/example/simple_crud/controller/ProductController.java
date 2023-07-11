@@ -1,6 +1,7 @@
 package com.example.simple_crud.controller;
 
 import com.example.simple_crud.entity.Product;
+import com.example.simple_crud.error.ProductNotFoundException;
 import com.example.simple_crud.service.ProductService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -21,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public List<Product> fetchAllProducts(){
+    public List<Product> fetchAllProducts() throws ProductNotFoundException {
         LOGGER.info("fetch all product data");
         return productService.fetchAllProducts();
     }
@@ -33,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public Product fetchProduct(@PathVariable("id") Long productId){
+    public Product fetchProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
         LOGGER.info("fetch product data using id");
         return productService.fetchProductById(productId);
     }
@@ -52,13 +53,13 @@ public class ProductController {
     }
 
     @GetMapping("/product/search/name/{name}")
-    public Product fetchProductByName(@PathVariable("name") String productName){
+    public Product fetchProductByName(@PathVariable("name") String productName) throws ProductNotFoundException {
         LOGGER.info("search product data using product name");
         return productService.fetchProductByName(productName);
     }
 
     @GetMapping("product/search/{name}")
-    public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName){
+    public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName) throws ProductNotFoundException {
         LOGGER.info("search list of products data using product name");
         return productService.searchProductsByName(productName);
     }

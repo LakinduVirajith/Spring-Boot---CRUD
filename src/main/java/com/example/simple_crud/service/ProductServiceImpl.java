@@ -1,12 +1,16 @@
 package com.example.simple_crud.service;
 
 import com.example.simple_crud.entity.Product;
+import com.example.simple_crud.error.ProductNotFoundException;
 import com.example.simple_crud.repository.ProductRepository;
+import lombok.NonNull;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -15,8 +19,12 @@ public class ProductServiceImpl implements ProductService{
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> fetchAllProducts() {
-        return productRepository.findAll();
+    public List<Product> fetchAllProducts() throws ProductNotFoundException {
+        List<Product> products = productRepository.findAll();
+        if(products.size() == 0){
+            throw new ProductNotFoundException("Products Data Not Found");
+        }
+        return products;
     }
 
     @Override
@@ -25,8 +33,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product fetchProductById(Long productId) {
-        return productRepository.findById(productId).get();
+    public Product fetchProductById(Long productId) throws ProductNotFoundException {
+        Optional<Product> product = productRepository.findById(productId);
+        if(!product.isPresent()){
+            throw new ProductNotFoundException("Product Not Found");
+        }
+        return product.get();
     }
 
     @Override
@@ -56,18 +68,26 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product fetchProductByName(String productName) {
+    public Product fetchProductByName(String productName) throws ProductNotFoundException {
         Product product = productRepository.findByProductName(productName);
         if (!Objects.nonNull(product)) {
             product = productRepository.findByProductNameIgnoreCase(productName);
+        }
+        if(!Objects.nonNull(product)){
+            throw new ProductNotFoundException("Product Not Found");
         }
 
         return product;
     }
 
     @Override
-    public List<Product> searchProductsByName(String productName) {
+    public List<Product> searchProductsByName(String productName) throws ProductNotFoundException {
         String searchName = productName.trim().toLowerCase();
-        return productRepository.findByProductNameIgnoreCaseContaining(searchName);
+        List<Product> products = productRepository.findByProductNameIgnoreCaseContaining(searchName);
+        if(products.size() == 0){
+            throw new ProductNotFoundException("Search Products Data Not Found");
+        }
+
+        return products;
     }
 }
