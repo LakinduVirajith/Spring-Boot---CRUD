@@ -16,7 +16,7 @@ public interface ProductService {
 
     void deleteProduct(Long productId) throws NotFoundException, InternalServerErrorException;
 
-    Product updateProduct(Long productId, Product product) throws InternalServerErrorException;
+    Product updateProduct(Long productId, Product product) throws InternalServerErrorException, NotFoundException;
 
     Product fetchProductByName(String productName) throws NotFoundException, InternalServerErrorException;
 

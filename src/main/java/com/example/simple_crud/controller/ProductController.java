@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @PutMapping("/product/{id}")
-    public Product updateProduct(@PathVariable("id") Long productId, @RequestBody Product product) throws InternalServerErrorException {
+    public Product updateProduct(@PathVariable("id") Long productId, @RequestBody Product product) throws InternalServerErrorException, NotFoundException {
         LOGGER.info("update product data using id");
         return productService.updateProduct(productId, product);
     }

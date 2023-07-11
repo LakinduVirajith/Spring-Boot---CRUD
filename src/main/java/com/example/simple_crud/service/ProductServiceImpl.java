@@ -4,7 +4,6 @@ import com.example.simple_crud.entity.Product;
 import com.example.simple_crud.error.InternalServerErrorException;
 import com.example.simple_crud.error.NotFoundException;
 import com.example.simple_crud.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,10 +11,13 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @Override
     public List<Product> fetchAllProducts() throws NotFoundException, InternalServerErrorException {
@@ -71,12 +73,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long productId, Product product) throws InternalServerErrorException {
+    public Product updateProduct(Long productId, Product product) throws InternalServerErrorException, NotFoundException {
         Product productValue;
         try {
             productValue = productRepository.findById(productId).get();
         } catch (Exception e) {
-            throw new InternalServerErrorException("Failed to Fetch the Product.");
+            throw new NotFoundException("Product Not Found");
         }
 
         if(Objects.nonNull(product.getProductName()) && !"".equalsIgnoreCase(product.getProductName())){
@@ -100,7 +102,6 @@ public class ProductServiceImpl implements ProductService{
         } catch (Exception e) {
             throw new InternalServerErrorException("Failed to Update the Product.");
         }
-
     }
 
     @Override
