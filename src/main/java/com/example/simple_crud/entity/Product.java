@@ -25,5 +25,4 @@ public class Product {
     @Positive
     private Double regularPrice;
     private Double discount;
-    private Double avgRatings;
 }

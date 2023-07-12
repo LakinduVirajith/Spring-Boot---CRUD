@@ -1,11 +1,9 @@
 package com.example.simple_crud.service;
 
 import com.example.simple_crud.entity.Product;
-import com.example.simple_crud.error.ProductNotFoundException;
+import com.example.simple_crud.error.InternalServerErrorException;
+import com.example.simple_crud.error.NotFoundException;
 import com.example.simple_crud.repository.ProductRepository;
-import lombok.NonNull;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,42 +11,76 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
     @Override
-    public List<Product> fetchAllProducts() throws ProductNotFoundException {
-        List<Product> products = productRepository.findAll();
+    public List<Product> fetchAllProducts() throws NotFoundException, InternalServerErrorException {
+        List<Product> products;
+        try {
+            products = productRepository.findAll();
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Fetch the Products.");
+        }
+
         if(products.size() == 0){
-            throw new ProductNotFoundException("Products Data Not Found");
+            throw new NotFoundException("Products Data Not Found");
         }
         return products;
     }
 
     @Override
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    public Product saveProduct(Product product) throws InternalServerErrorException {
+        try {
+            return productRepository.save(product);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Save the Product");
+        }
     }
 
     @Override
-    public Product fetchProductById(Long productId) throws ProductNotFoundException {
-        Optional<Product> product = productRepository.findById(productId);
+    public Product fetchProductById(Long productId) throws NotFoundException, InternalServerErrorException {
+        Optional<Product> product;
+        try {
+            product = productRepository.findById(productId);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Fetch the Product");
+        }
+
         if(!product.isPresent()){
-            throw new ProductNotFoundException("Product Not Found");
+            throw new NotFoundException("Product Not Found");
         }
         return product.get();
     }
 
     @Override
-    public void deleteProduct(Long productId) {
-        productRepository.deleteById(productId);
+    public void deleteProduct(Long productId) throws NotFoundException, InternalServerErrorException {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        if (productOptional.isEmpty()) {
+            throw new NotFoundException("Product Not Found");
+        }
+
+        try {
+            productRepository.deleteById(productId);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Delete the Product.");
+        }
     }
 
     @Override
-    public Product updateProduct(Long productId, Product product) {
-        Product productValue = productRepository.findById(productId).get();
+    public Product updateProduct(Long productId, Product product) throws InternalServerErrorException, NotFoundException {
+        Product productValue;
+        try {
+            productValue = productRepository.findById(productId).get();
+        } catch (Exception e) {
+            throw new NotFoundException("Product Not Found");
+        }
+
         if(Objects.nonNull(product.getProductName()) && !"".equalsIgnoreCase(product.getProductName())){
             productValue.setProductName(product.getProductName());
         }
@@ -64,28 +96,45 @@ public class ProductServiceImpl implements ProductService{
         if(Objects.nonNull(product.getDiscount())){
             productValue.setDiscount(product.getDiscount());
         }
-        return productRepository.save(productValue);
+
+        try {
+            return productRepository.save(productValue);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Update the Product.");
+        }
     }
 
     @Override
-    public Product fetchProductByName(String productName) throws ProductNotFoundException {
-        Product product = productRepository.findByProductName(productName);
-        if (!Objects.nonNull(product)) {
-            product = productRepository.findByProductNameIgnoreCase(productName);
+    public Product fetchProductByName(String productName) throws NotFoundException, InternalServerErrorException {
+        Product product;
+        try {
+            product = productRepository.findByProductName(productName);
+            if (!Objects.nonNull(product)) {
+                product = productRepository.findByProductNameIgnoreCase(productName);
+            }
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Fetch the Product.");
         }
+
         if(!Objects.nonNull(product)){
-            throw new ProductNotFoundException("Product Not Found");
+            throw new NotFoundException("Product Not Found");
         }
 
         return product;
     }
 
     @Override
-    public List<Product> searchProductsByName(String productName) throws ProductNotFoundException {
-        String searchName = productName.trim().toLowerCase();
-        List<Product> products = productRepository.findByProductNameIgnoreCaseContaining(searchName);
+    public List<Product> searchProductsByName(String productName) throws NotFoundException, InternalServerErrorException {
+        List<Product> products;
+        try {
+            String searchName = productName.trim().toLowerCase();
+            products = productRepository.findByProductNameIgnoreCaseContaining(searchName);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Search the Product.");
+        }
+
         if(products.size() == 0){
-            throw new ProductNotFoundException("Search Products Data Not Found");
+            throw new NotFoundException("Search Products Data Not Found");
         }
 
         return products;
