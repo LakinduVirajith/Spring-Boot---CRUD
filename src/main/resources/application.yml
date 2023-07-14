@@ -33,6 +33,14 @@ spring:
     hibernate:
       ddl-auto: update
 
+management:
+  endpoint:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "beans, conditions, loggers, heapdump, threaddump"
+
 ---
 
 spring:
