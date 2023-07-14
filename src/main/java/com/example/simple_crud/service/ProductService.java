@@ -1,18 +1,24 @@
 package com.example.simple_crud.service;
 
 import com.example.simple_crud.entity.Product;
+import com.example.simple_crud.error.InternalServerErrorException;
+import com.example.simple_crud.error.NotFoundException;
 
 import java.util.List;
 
 public interface ProductService {
 
-    public List<Product> fetchAllProducts();
+    List<Product> fetchAllProducts() throws NotFoundException, InternalServerErrorException;
 
-    public Product saveProduct(Product product);
+    Product saveProduct(Product product) throws InternalServerErrorException;
 
-    public Product fetchProductById(Long id);
+    Product fetchProductById(Long id) throws NotFoundException, InternalServerErrorException;
 
-    public void deleteProduct(Long productId);
+    void deleteProduct(Long productId) throws NotFoundException, InternalServerErrorException;
 
-    public Product updateProduct(Long productId, Product product);
+    Product updateProduct(Long productId, Product product) throws InternalServerErrorException, NotFoundException;
+
+    Product fetchProductByName(String productName) throws NotFoundException, InternalServerErrorException;
+
+    List<Product> searchProductsByName(String productName) throws NotFoundException, InternalServerErrorException;
 }
