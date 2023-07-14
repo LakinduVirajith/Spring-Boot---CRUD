@@ -14,10 +14,51 @@ server:
 
 #MySQL database
 spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    url: jdbc:mysql://localhost:3306/test_db
+    url: jdbc:mysql://localhost:3306/dev_db
+    password: Lakindu@MySQL
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/qa_db
+    password: Lakindu@MySQL
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/prod_db
     password: Lakindu@MySQL
   jpa:
     show-sql: 'true'
