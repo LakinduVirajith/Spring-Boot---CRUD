@@ -1,0 +1,66 @@
+#change running port
+server:
+  port: 8080
+
+#h2 database
+#spring:
+#  datasource:
+#    username: vp_innovations_labs
+#    url: jdbc:h2:mem:test_db
+#    driverClassName: org.h2.Driver
+#    password: vp_innovations_2023
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+
+#MySQL database
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/dev_db
+    password: Lakindu@MySQL
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: qa
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/qa_db
+    password: Lakindu@MySQL
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/prod_db
+    password: Lakindu@MySQL
+  jpa:
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
