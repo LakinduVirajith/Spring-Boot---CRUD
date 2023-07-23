@@ -3,11 +3,11 @@
 <div style="display: flex;">
     <!-- SPRING BOOT LOGO -->
     <a href="https://spring.io/projects/spring-boot/">
-            <img src="https://4.bp.blogspot.com/-ou-a_Aa1t7A/W6IhNc3Q0gI/AAAAAAAAD6Y/pwh44arKiuM_NBqB1H7Pz4-7QhUxAgZkACLcBGAs/s1600/spring-boot-logo.png" alt="SPRING BOOT LOGO" height="55" style="margin-right: 16px;" />
-    </a>
+            <img src="https://4.bp.blogspot.com/-ou-a_Aa1t7A/W6IhNc3Q0gI/AAAAAAAAD6Y/pwh44arKiuM_NBqB1H7Pz4-7QhUxAgZkACLcBGAs/s1600/spring-boot-logo.png" alt="SPRING BOOT LOGO" height="55" />
+    </a>&nbsp;&nbsp;&nbsp;
     <!-- MYSQL LOGO -->
     <a href="https://www.mysql.com/">
-        <img src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="MYSQL LOGO" height="38"/>
+        <img src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="MYSQL LOGO" height="38" />
     </a>
 </div>
 
