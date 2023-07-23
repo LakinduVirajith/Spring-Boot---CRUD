@@ -1,6 +1,4 @@
-<div style="display: grid; grid-template-columns: 2fr 1fr; column-gap: 16px; margin-bottom: 16px;">
-    <h1>Spring-Boot---CRUD</h1>
-    <div style="display: flex; gap: 24px; justify-content: end">
+<div style="display: flex; grid-template-columns: 2fr 1fr; column-gap: 16px; margin-bottom: 16px;">
         <!-- SPRING BOOT LOGO -->
         <a href="https://spring.io/projects/spring-boot/">
             <img src="https://4.bp.blogspot.com/-ou-a_Aa1t7A/W6IhNc3Q0gI/AAAAAAAAD6Y/pwh44arKiuM_NBqB1H7Pz4-7QhUxAgZkACLcBGAs/s1600/spring-boot-logo.png" alt="SPRING BOOT LOGO" height="50" />
@@ -9,8 +7,9 @@
         <a href="https://www.mysql.com/">
             <img src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="MYSQL LOGO" height="44"/>
         </a>
-    </div>
 </div>
+
+# Spring-Boot---CRUD
 
 # SPRING BOOT ANNOTATIONS <!-- ANNOTATIONS -->
 
