@@ -7,6 +7,8 @@ import com.example.simple_crud.service.ProductService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private final ProductService productService;
+    private ProductService productService;
 
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
@@ -63,5 +65,11 @@ public class ProductController {
     public List<Product> fetchAllProductByNameIgnoreCase(@PathVariable("name") String productName) throws NotFoundException, InternalServerErrorException {
         LOGGER.info("search list of products data using product name");
         return productService.searchProductsByName(productName);
+    }
+
+    @GetMapping("product/search/description/{name}")
+    public Page<Product> searchProductByProductDescription(@PathVariable("name") String productDescription, Pageable pageable) throws NotFoundException, InternalServerErrorException {
+        LOGGER.info("search list of products data using product description");
+        return productService.searchProductByProductDescription(productDescription, pageable);
     }
 }

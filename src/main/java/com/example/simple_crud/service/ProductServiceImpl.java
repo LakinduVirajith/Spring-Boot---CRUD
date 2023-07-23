@@ -4,6 +4,8 @@ import com.example.simple_crud.entity.Product;
 import com.example.simple_crud.error.InternalServerErrorException;
 import com.example.simple_crud.error.NotFoundException;
 import com.example.simple_crud.repository.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -139,4 +141,23 @@ public class ProductServiceImpl implements ProductService {
 
         return products;
     }
+
+    @Override
+    public Page<Product> searchProductByProductDescription(String productDescription, Pageable pageable) throws NotFoundException, InternalServerErrorException{
+        Page<Product> products;
+
+        try {
+            products = productRepository.findAllByProductDescriptionContaining(productDescription, pageable);
+        } catch (Exception e) {
+            throw new InternalServerErrorException("Failed to Search the Product.");
+        }
+
+        if(products.isEmpty()){
+            throw new NotFoundException("Search Products Data Not Found");
+        }
+
+        return products;
+    }
+
+
 }
